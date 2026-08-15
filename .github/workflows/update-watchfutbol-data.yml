@@ -1,0 +1,36 @@
+name: Update WatchFutbol Data
+
+on:
+  schedule:
+    # Runs once a day at 09:00 UTC. Edit the cron expression to change timing.
+    # (14 leagues x 5 API calls each = 70 requests/day, well inside the
+    # free plan's 100/day limit — don't add a second daily run without
+    # trimming calls first.)
+    - cron: "0 9 * * *"
+  workflow_dispatch: {} # lets you trigger a run manually from the Actions tab
+
+permissions:
+  contents: write # needed so the workflow can commit the updated data file
+
+jobs:
+  fetch-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch data from API-Football
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: node scripts/fetch-and-publish.js
+
+      - name: Commit and push if the data changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update WatchFutbol data feed"
+          file_pattern: "data/watchfutbol-feed.json"
