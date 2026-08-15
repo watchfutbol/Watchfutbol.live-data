@@ -1,10 +1,89 @@
 {
-  "generated_at": "2026-08-15T20:35:48.871Z",
+  "generated_at": "2026-08-15T20:48:30.071Z",
   "leagues": {
+    "Premier League": {
+      "matches": [],
+      "standings": [],
+      "scorers": [],
+      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+    },
+    "La Liga": {
+      "matches": [],
+      "standings": [],
+      "scorers": [],
+      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+    },
+    "Bundesliga": {
+      "matches": [],
+      "standings": [],
+      "scorers": [],
+      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+    },
+    "Serie A": {
+      "matches": [],
+      "standings": [],
+      "scorers": [],
+      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+    },
+    "Ligue 1": {
+      "matches": [],
+      "standings": [],
+      "scorers": [],
+      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+    },
+    "MLS": {
+      "matches": [],
+      "standings": [],
+      "scorers": [],
+      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+    },
     "Leagues Cup": {
       "matches": [],
       "standings": [],
-      "scorers": []
+      "scorers": [],
+      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+    },
+    "Liga DIMAYOR": {
+      "matches": [],
+      "standings": [],
+      "scorers": [],
+      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+    },
+    "Copa Colombia": {
+      "matches": [],
+      "standings": [],
+      "scorers": [],
+      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+    },
+    "Copa Sudamericana": {
+      "matches": [],
+      "standings": [],
+      "scorers": [],
+      "note": "No API-Football match found for search \"Copa Sudamericana\""
+    },
+    "Copa Libertadores": {
+      "matches": [],
+      "standings": [],
+      "scorers": [],
+      "note": "No API-Football match found for search \"Copa Libertadores\""
+    },
+    "Champions League": {
+      "matches": [],
+      "standings": [],
+      "scorers": [],
+      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+    },
+    "Europa League": {
+      "matches": [],
+      "standings": [],
+      "scorers": [],
+      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+    },
+    "Europa Conference League": {
+      "matches": [],
+      "standings": [],
+      "scorers": [],
+      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
     }
   }
 }
