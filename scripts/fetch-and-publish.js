@@ -22,10 +22,13 @@ if (!API_KEY) {
 }
 
 // The 14 competitions WatchFutbol tracks. `searchTerm` is what gets sent to
-// API-Football's /leagues search endpoint; `country` narrows the search when
-// a league name alone is ambiguous. `displayName` is the exact string used
-// throughout the WatchFutbol Base44 app (must match, including spelling like
-// "La Liga" with a space) so the Review Queue can match leagues correctly.
+// API-Football's /leagues search endpoint. `country`, if set, is used to pick
+// the right result AFTER searching (the API rejects sending `search` and
+// `country` in the same request — "The Country field cannot be used with the
+// Search field" — found from a real run's logs on 2026-08-15). `displayName`
+// is the exact string used throughout the WatchFutbol Base44 app (must match,
+// including spelling like "La Liga" with a space) so the Review Queue can
+// match leagues correctly.
 const LEAGUES = [
   { displayName: "Premier League", searchTerm: "Premier League", country: "England" },
   { displayName: "La Liga", searchTerm: "La Liga", country: "Spain" },
@@ -46,8 +49,19 @@ const LEAGUES = [
 const DAYS_AHEAD = 14; // how far into the future to pull upcoming fixtures
 const DAYS_BACK = 14; // how far back to check for newly-finished matches
 
+// Free-plan requests are rate-limited per minute (a real run hit this on
+// 2026-08-15 after ~8 rapid calls). Spacing every call out by this much and
+// running everything sequentially (no Promise.all) keeps us well under it.
+// 14 leagues x up to 5 calls each x 8s = ~9-10 minutes total, which is fine
+// for a once-a-day background job.
+const REQUEST_DELAY_MS = 8000;
+
 function isoDate(d) {
   return d.toISOString().slice(0, 10);
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function apiGet(path, params) {
@@ -56,39 +70,47 @@ async function apiGet(path, params) {
     if (v !== undefined && v !== null) url.searchParams.set(k, v);
   });
   const res = await fetch(url, { headers: { "x-apisports-key": API_KEY } });
+  await sleep(REQUEST_DELAY_MS); // always pace, even after a failed call
   if (!res.ok) {
     throw new Error(`API-Football request failed (${res.status}) for ${url}`);
   }
   const json = await res.json();
   if (json.errors && Object.keys(json.errors).length > 0) {
-    console.warn(`API-Football returned errors for ${url}:`, json.errors);
+    const message = Object.values(json.errors).join("; ");
+    const err = new Error(message);
+    err.isApiError = true;
+    throw err;
   }
   return json.response;
 }
 
-// Resolve a league's numeric id + current season year by searching by name.
-// Doing this dynamically (instead of hardcoding ids) avoids shipping guessed
-// or stale ids — API-Football's ids and current-season flags are the source
-// of truth.
+// Resolve a league's numeric id + current season year by searching by name
+// only (no country param — see note above), then picking the best match
+// from the results using the country client-side, if one was given.
 async function resolveLeague(entry) {
-  const results = await apiGet("/leagues", {
-    search: entry.searchTerm,
-    country: entry.country,
-  });
+  const results = await apiGet("/leagues", { search: entry.searchTerm });
   if (!results || results.length === 0) {
-    console.warn(`No API-Football match found for "${entry.displayName}" (search="${entry.searchTerm}")`);
-    return null;
+    return { error: `No API-Football match found for search "${entry.searchTerm}"` };
   }
-  // Prefer an exact (case-insensitive) name match; fall back to the first result.
+
+  let candidates = results;
+  if (entry.country) {
+    const inCountry = results.filter(
+      (r) => r.country?.name?.toLowerCase() === entry.country.toLowerCase()
+    );
+    if (inCountry.length > 0) candidates = inCountry;
+  }
+
   const best =
-    results.find(
+    candidates.find(
       (r) => r.league.name.toLowerCase() === entry.searchTerm.toLowerCase()
-    ) || results[0];
+    ) || candidates[0];
+
   const currentSeason = best.seasons.find((s) => s.current) || best.seasons.at(-1);
   if (!currentSeason) {
-    console.warn(`No season data for "${entry.displayName}" (matched "${best.league.name}")`);
-    return null;
+    return { error: `No season data found for "${entry.displayName}" (matched API league "${best.league.name}")` };
   }
+
   return {
     id: best.league.id,
     apiName: best.league.name,
@@ -98,7 +120,9 @@ async function resolveLeague(entry) {
 
 async function fetchLeagueData(entry) {
   const resolved = await resolveLeague(entry);
-  if (!resolved) return null;
+  if (resolved.error) {
+    return { matches: [], standings: [], scorers: [], note: resolved.error };
+  }
 
   const today = new Date();
   const future = new Date(today);
@@ -106,23 +130,47 @@ async function fetchLeagueData(entry) {
   const past = new Date(today);
   past.setDate(past.getDate() - DAYS_BACK);
 
-  const [upcoming, recentlyFinished, standingsResp, topScorers] = await Promise.all([
-    apiGet("/fixtures", {
+  // Sequential, not Promise.all — keeps request pacing predictable.
+  let upcoming = [];
+  let recentlyFinished = [];
+  let standingsResp = [];
+  let topScorers = [];
+  const notes = [];
+
+  try {
+    upcoming = await apiGet("/fixtures", {
       league: resolved.id,
       season: resolved.season,
       from: isoDate(today),
       to: isoDate(future),
-    }),
-    apiGet("/fixtures", {
+    });
+  } catch (err) {
+    notes.push(`upcoming fixtures: ${err.message}`);
+  }
+
+  try {
+    recentlyFinished = await apiGet("/fixtures", {
       league: resolved.id,
       season: resolved.season,
       from: isoDate(past),
       to: isoDate(today),
       status: "FT",
-    }),
-    apiGet("/standings", { league: resolved.id, season: resolved.season }),
-    apiGet("/players/topscorers", { league: resolved.id, season: resolved.season }),
-  ]);
+    });
+  } catch (err) {
+    notes.push(`recent results: ${err.message}`);
+  }
+
+  try {
+    standingsResp = await apiGet("/standings", { league: resolved.id, season: resolved.season });
+  } catch (err) {
+    notes.push(`standings: ${err.message}`);
+  }
+
+  try {
+    topScorers = await apiGet("/players/topscorers", { league: resolved.id, season: resolved.season });
+  } catch (err) {
+    notes.push(`top scorers: ${err.message}`);
+  }
 
   const matches = [...(upcoming || []), ...(recentlyFinished || [])].map((f) => ({
     league: entry.displayName,
@@ -160,19 +208,30 @@ async function fetchLeagueData(entry) {
     goals: p.statistics?.[0]?.goals?.total || 0,
   }));
 
-  return { matches, standings, scorers };
+  return {
+    matches,
+    standings,
+    scorers,
+    note: notes.length ? notes.join(" | ") : undefined,
+  };
 }
 
 async function main() {
   const out = { generated_at: new Date().toISOString(), leagues: {} };
 
   for (const entry of LEAGUES) {
+    console.log(`Fetching ${entry.displayName}...`);
     try {
-      console.log(`Fetching ${entry.displayName}...`);
-      const data = await fetchLeagueData(entry);
-      if (data) out.leagues[entry.displayName] = data;
+      out.leagues[entry.displayName] = await fetchLeagueData(entry);
+      const l = out.leagues[entry.displayName];
+      if (l.note) {
+        console.warn(`  ${entry.displayName}: ${l.note}`);
+      } else {
+        console.log(`  ${entry.displayName}: ${l.matches.length} matches, ${l.standings.length} standings rows, ${l.scorers.length} scorers`);
+      }
     } catch (err) {
       console.error(`Failed to fetch ${entry.displayName}:`, err.message);
+      out.leagues[entry.displayName] = { matches: [], standings: [], scorers: [], note: `fetch failed: ${err.message}` };
       // Keep going — one league failing shouldn't blank out the rest of the feed.
     }
   }
