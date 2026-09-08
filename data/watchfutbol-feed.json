@@ -1,89 +1,89 @@
 {
-  "generated_at": "2026-09-07T09:08:41.736Z",
+  "generated_at": "2026-09-08T09:08:35.274Z",
   "leagues": {
     "Premier League": {
       "matches": [],
       "standings": [],
       "scorers": [],
-      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+      "note": "fetch failed: Your account is suspended, check on https://dashboard.api-football.com."
     },
     "La Liga": {
       "matches": [],
       "standings": [],
       "scorers": [],
-      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+      "note": "fetch failed: Your account is suspended, check on https://dashboard.api-football.com."
     },
     "Bundesliga": {
       "matches": [],
       "standings": [],
       "scorers": [],
-      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+      "note": "fetch failed: Your account is suspended, check on https://dashboard.api-football.com."
     },
     "Serie A": {
       "matches": [],
       "standings": [],
       "scorers": [],
-      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+      "note": "fetch failed: Your account is suspended, check on https://dashboard.api-football.com."
     },
     "Ligue 1": {
       "matches": [],
       "standings": [],
       "scorers": [],
-      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+      "note": "fetch failed: Your account is suspended, check on https://dashboard.api-football.com."
     },
     "MLS": {
       "matches": [],
       "standings": [],
       "scorers": [],
-      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+      "note": "fetch failed: Your account is suspended, check on https://dashboard.api-football.com."
     },
     "Leagues Cup": {
       "matches": [],
       "standings": [],
       "scorers": [],
-      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+      "note": "fetch failed: Your account is suspended, check on https://dashboard.api-football.com."
     },
     "Liga DIMAYOR": {
       "matches": [],
       "standings": [],
       "scorers": [],
-      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+      "note": "fetch failed: Your account is suspended, check on https://dashboard.api-football.com."
     },
     "Copa Colombia": {
       "matches": [],
       "standings": [],
       "scorers": [],
-      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+      "note": "fetch failed: Your account is suspended, check on https://dashboard.api-football.com."
     },
     "Copa Sudamericana": {
       "matches": [],
       "standings": [],
       "scorers": [],
-      "note": "No API-Football match found for search \"Copa Sudamericana\""
+      "note": "fetch failed: Your account is suspended, check on https://dashboard.api-football.com."
     },
     "Copa Libertadores": {
       "matches": [],
       "standings": [],
       "scorers": [],
-      "note": "No API-Football match found for search \"Copa Libertadores\""
+      "note": "fetch failed: Your account is suspended, check on https://dashboard.api-football.com."
     },
     "Champions League": {
       "matches": [],
       "standings": [],
       "scorers": [],
-      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+      "note": "fetch failed: Your account is suspended, check on https://dashboard.api-football.com."
     },
     "Europa League": {
       "matches": [],
       "standings": [],
       "scorers": [],
-      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+      "note": "fetch failed: Your account is suspended, check on https://dashboard.api-football.com."
     },
     "Europa Conference League": {
       "matches": [],
       "standings": [],
       "scorers": [],
-      "note": "upcoming fixtures: Free plans do not have access to this season, try from 2022 to 2024. | recent results: Free plans do not have access to this season, try from 2022 to 2024. | standings: Free plans do not have access to this season, try from 2022 to 2024. | top scorers: Free plans do not have access to this season, try from 2022 to 2024."
+      "note": "fetch failed: Your account is suspended, check on https://dashboard.api-football.com."
     }
   }
 }
